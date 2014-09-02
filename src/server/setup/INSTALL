@@ -1,0 +1,12 @@
+For RHEL/CENTOS
+
+# yum install perl  libxml-simple-perl 
+
+For Debian based systems
+
+# apt-get install perl libxml-simple-perl
+
+
+cp hadoop-manager/src/client/etc/cron.d/* /etc/cron.d/
+cp hadoop-manager/src/client/usr/local/bin/* /usr/local/bin/
+cp -r  hadoop-manager/src/client/var/www/* /Var/www/

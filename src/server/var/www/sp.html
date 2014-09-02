@@ -1,0 +1,205 @@
+<html lang="en">
+<head>
+<title>Cluster Management - Manage</title>
+<link href="/hm/assets/css/bootstrap.css" rel="stylesheet">
+
+<style type="text/css">
+.navbar-inner {
+background: -webkit-linear-gradient(left top, black, black);
+background-image: -moz-linear-gradient(center top , #000000, #000000);
+}
+.dropdown {
+margin-left: 400px;
+}
+.navbar .nav > li > a {
+color: #FFFFFF;
+font-size: 20px;
+padding: 10px 15px;
+}
+.navbar .brand {
+color: #FFFFFF;
+font-style: italic;
+font-size: 20px;
+}
+.navbar .nav li.dropdown.open > .dropdown-toggle,
+.navbar .nav li.dropdown.active > .dropdown-toggle,
+.navbar .nav li.dropdown.open.active > .dropdown-toggle {
+  color: #000000;
+  background-color: #e5e5e5;
+}
+.table th, .table td {
+  text-align: center;
+}
+.table-hover tbody tr:hover > td {
+ color: #D85252;
+}
+</style>
+</head>
+
+<body>
+<script language="JavaScript">
+function Expand (node)
+{
+if (node.children.length > 0)
+{
+if (node.children.item(0).tagName == "IMG")
+{
+node.children.item(0).src = "/img/close.png";
+}
+}
+node.nextSibling.style.display = '';
+}
+
+function Collapse (node)
+{
+if (node.children.length > 0)
+{
+if (node.children.item(0).tagName == "IMG")
+{
+node.children.item(0).src = "/img/open.png";
+}
+}
+node.nextSibling.style.display = 'none';
+}
+
+function Toggle (node)
+{
+if (node.nextSibling.style.display == 'none' )
+{
+Expand(node);
+}
+else
+{
+Collapse(node);
+}
+
+}
+
+function ExpandAll(num)
+{
+var node;
+var count;
+for(var i=1; i<num; i++)
+{
+count = sub + i;
+node = document.getElementById(count);
+if (node)
+if (node.nextSibling.style.display == 'none' ) Expand(node);
+count = "";
+}
+}
+
+function CollapseAll(num)
+{
+var node;
+var count;
+for(var i=1; i<num; i++)
+{
+count = sub + i;
+node = document.getElementById(count);
+if (node)
+if (node.nextSibling.style.display != 'none' ) Collapse(node);
+count = "";
+}
+}
+
+</script>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav">
+                    <a class="brand" href="#">Hadoop Manager</a>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Choose Cluster<b class="caret"></b></a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="h4.html">H4-OLTP</a></li>
+                            <li><a href="sp.html">H3-OLAP</a></li>
+                            <li class="divider"></li>
+                            <li><a href="sp.html">Hodoo</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<div class="sidebar">
+<p>
+<p>
+<p>
+<center>
+   <table border=0>
+    <tr>
+    <td>
+    <A onClick="Toggle(this)" id="sub1" style="text-decoration:none;">&nbsp;&nbsp;Monitoring&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<IMG SRC="/img/close.png"></a><DIV>
+<table class="table table-hover">
+        <tr>
+        <td><a target="framename" href="http://hmanager_server_host/sp/dash/dash.html">Dashboard</a></td>
+        </tr>
+        <tr>
+        <td><a target="framename" href="http://hmanager_server_host/sp/dash/hdfs.html">HDFS</a></td>
+        </tr>
+        <tr>
+        <td><a target="framename" href="http://hmanager_server_host/sp/dash/mapred.html">MapReduce</a></td>
+        </tr>
+        <tr>
+        <td><a target="framename" href="http://hmanager_server_host/sp/dash/hbase.html">Hbase</td>
+        </tr>
+        <tr>
+	<td><a target="framename" href="http://hmanager_server_host/sp/dash/zoo.html">Zookeeper</td>
+        </tr>
+    </table>
+</div></td></tr>
+    <tr>
+    <td>
+    <A onClick="Toggle(this)" id="sub2" style="text-decoration:none;">&nbsp;&nbsp;Configuration&nbsp;&nbsp;&nbsp;<IMG SRC="/img/close.png"></a><DIV>
+<table class="table table-hover">
+        <tr>
+	<td><a target="framename" href="http://hmanager_server_host/sp/conf/hadoop/hadoop_conf.html">HDFS</a></td>
+        </tr>
+        <tr>
+	<td><a target="framename" href="http://hmanager_server_host/sp/conf/hbase/hbase_conf.html">Hbase</a></td>
+        </tr>
+        <tr>
+	<td><a target="framename" href="http://hmanager_server_host/sp/conf/zoo/zoo_conf.html">Zookeeper</a></td>
+        </tr>
+	 <tr>
+	<td><a target="framename" href="http://hmanager_server_host/sp/conf/krb/krb_conf.html">Kerberos</a></td>
+        </tr>
+    </table>
+</div></td></tr>
+    <tr>
+    <td>
+    <A onClick="Toggle(this)" id="sub2" style="text-decoration:none;">&nbsp;&nbsp;Administration&nbsp;&nbsp;<IMG SRC="/img/close.png"></a><DIV>
+<table class="table table-hover">
+        <tr>
+	<td><a target="framename" href="http://console">HDFS/Hbase</a></td>
+        </tr>
+    </table>
+</div></td></tr>
+        </table>
+</div>
+<div class="content">
+<iframe name="framename" src="http://hmanager_server_host/sp/dash/dash.html" frameBorder="0" width=100% height=100%>
+</iframe>
+</div>
+	<script type="text/javascript" src="/hm/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="/hm/assets/js/bootstrap-dropdown.js"></script>
+	<script type="text/javascript" src="/hm/assets/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/hm/assets/js/bootstrap-collapse.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
+        });
+jQuery('ul.nav li.dropdown').hover(function() {
+  jQuery(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn();
+}, function() {
+  jQuery(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut();
+});
+   </script>
+
+<footer>
+<p>&copy; @ops-ninjas 2012</p>
+</footer>
+
+</body>
+</html>

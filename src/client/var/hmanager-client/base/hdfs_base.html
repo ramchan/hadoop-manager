@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Twitter Bootstrap Basic Tab Based Navigation Example</title>
+<meta name="description" content="Twitter Bootstrap Basic Tab Based Navigation Example">
+<link href="/hm/assets/css/bootstrap.css" rel="stylesheet">
+
+<style type="text/css">
+a {
+    color: #D85252;
+}
+.footer {
+    position: absolute;
+    bottom: 0px;
+    right: 50px;
+}
+</style>
+</head>
+<body>
+<script src="/hm/assets/js/jquery.js"></script>
+<script src="/hm/assets/js/bootstrap.js"></script>
+<script>
+$('#myTabs').bind('show', function(e) {  
+
+    // identify the tab-pane
+    paneID = $(e.target).attr('href');
+
+    // get the value of the custom data attribute to use as the iframe source
+    src = $(paneID).attr('data-src');
+
+    //if the iframe on the selected tab-pane hasn't been loaded yet...
+    if($(paneID+" iframe").attr("src")=="")
+    {
+        // update the iframe src attribute using the custom data-attribute value
+        $(paneID+" iframe").attr("src",src);
+    }
+});
+</script>
+
+<div class="tabbable">
+  <ul class="nav nav-tabs" id="myTabs">
+    <li class="active"><a href="#pane1" data-toggle="tab">Namenode</a></li>
+    <li><a href="#pane2" data-toggle="tab">Datanode</a></li>
+    <li><a href="#pane3" data-toggle="tab">Hdfs Data</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="pane1" class="tab-pane active">

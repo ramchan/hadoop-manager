@@ -1,0 +1,47 @@
+#!/usr/bin/perl -w
+
+use strict;
+use feature "state";
+use XML::Simple;
+
+
+my $host=`hostname -f`;
+
+$ENV{KRB5CCNAME} = "/tmp/nagios_ha_check";
+$SIG{ALRM} = sub {
+  print "UNKNOWN: Script timed out\n";
+};
+if (system("kinit -R 2>/dev/null") != 0) {
+        unless (system("kinit -kt /etc/hadoop/keytabs/hdfs.keytab hdfs/`hostname -f`") == 0 and system("kinit -R") == 0) {
+                print "Unable to kinit\n";
+                exit 2;
+        }
+}
+
+alarm (5);
+        my $ref = XMLin('/etc/hadoop/conf/hdfs-site.xml');
+        my $cluster_name = ${$ref}{property}{"dfs.nameservices"}{value};
+        my $hostvalues= ${$ref}{property}{"dfs.ha.namenodes.$cluster_name"}{value};
+        my @hosts = split (/,/,$hostvalues);
+
+        my $primary_host=$hosts[0];
+        my $secondary_host=$hosts[1];
+        state $primary_status=`hdfs haadmin -getServiceState "$primary_host" 2>/dev/null`;
+        state $secondary_status=`hdfs haadmin -getServiceState "$secondary_host" 2>/dev/null`;
+        chomp $primary_status;
+        chomp $secondary_status;
+        if ($primary_status eq 'active'){
+                print "pri $primary_host OK\n";
+        }
+        if ($primary_status eq ''){
+                print "pri $primary_host FAIL\n";
+        }
+        if ($secondary_status eq 'standby'){
+                print "sec $secondary_host OK\n";
+        }
+        if ($secondary_status eq ''){
+                print "sec $secondary_status FAIL\n";
+        }
+
+
+

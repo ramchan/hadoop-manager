@@ -1,0 +1,44 @@
+#! /bin/bash -e
+#
+#nagios package making machine
+function die()
+{
+        echo "Error: $1" >&2
+        exit 1
+}
+
+[ -z "$LOCAL_DIR" ] && die "No base dir specified"
+[ -z "$TARGET" ] && die "No package target specified"
+[ -z "$INSTALL_BASE" ] && die "No install base specified"
+[ -z "$PACKAGE" ] && die "No package name specified"
+[ ! -d "$LOCAL_DIR" ] && die "$LOCAL_DIR does not exist"
+
+case "$TARGET" in
+        local) ENV=local;;
+        qa) ENV=eng;;
+        release) ENV=prod;;
+        nm) ENV=nm;;
+        sb) ENV=sb;;
+	stage) ENV=stage;;
+	stagech) ENV=stagech;;
+	stage-ch) ENV=stage-ch;;
+	ch) ENV=ch;;
+esac
+[ -z "$ENV" ] && die "Invalid target: $TARGET"
+
+echo "Creating base dir and other dir for debian packaging"
+
+# Create base dir for debian packaging
+mkdir -p "$LOCAL_DIR"/deb
+DEB_DIR="$LOCAL_DIR/deb"
+
+cp -r "$LOCAL_DIR"/etc "$LOCAL_DIR"/deb/
+cp -r "$LOCAL_DIR"/var "$LOCAL_DIR"/deb/
+cp -r "$LOCAL_DIR"/usr "$LOCAL_DIR"/deb/
+cp -r "$LOCAL_DIR"/DEBIAN "$LOCAL_DIR"/deb/
+
+
+sed -i -e "s/_PACKAGE_/$PACKAGE/g" "${DEB_DIR}/DEBIAN/control"  ## Set locations accordingly
+
+exit 0
+

@@ -1,0 +1,2 @@
+* * * * * root /bin/bash  /usr/local/bin/sync_html.sh
+0 * * * *  root /bin/bash  /usr/local/bin/sync_conf.sh

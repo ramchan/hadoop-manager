@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+<title>Cluster Management - Manage</title>
+<link href="/hm/assets/css/bootstrap.css" rel="stylesheet">
+
+<style type="text/css">
+.table-hover tbody tr:hover > td {
+ color: #388C23;
+}
+.footer {
+    position: absolute;
+    bottom: 0px;
+    right: 50px;
+}
+.table .text-right {text-align: right}
+.table .text-left {text-align: left}
+.table .text-center {text-align: center}
+.table .text-justify {text-align: justify}
+</style>
+</head>
+
+<body>
+ <script type="text/javascript" src="/hm/assets/js/jquery.js"></script>
+ <script type="text/javascript" src="/hm/assets/js/bootstrap-tooltip.js"></script>
+ <script type="text/javascript" src="/hm/assets/js/bootstrap-popover.js"></script>
+<script>  
+jQuery(function(){
+ $('a[rel=popover]').popover({trigger: 'hover',html : true});
+});  
+</script>
+
+<table class="table table-hover table-bordered">
+        <tr class="text-center">
+        <th><center>Name</th>
+	<th><center>Status</th>
+	<th><center>Component</th>
+        </tr>
